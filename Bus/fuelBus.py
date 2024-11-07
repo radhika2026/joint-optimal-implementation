@@ -1,5 +1,5 @@
-from bus import Bus
-class DieselBus(Bus):
+from .Bus import Bus
+class FuelBus(Bus):
     """
     Represents a diesel bus, subclass of Bus.
     """

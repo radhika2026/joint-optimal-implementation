@@ -1,4 +1,4 @@
-from bus import Bus
+from .Bus import Bus
 class ElectricBus(Bus):
     """
     Represents an electric bus, subclass of Bus.
