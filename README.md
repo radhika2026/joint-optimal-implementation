@@ -30,9 +30,7 @@ The aim is to assign each bus in the fleet (both electric and diesel) to serve s
 
 1. **Trip Completion Constraint**: Ensures each trip is served by one bus, either electric or diesel.
 
-   \[
-   \sum_{e \in \text{electric\_buses}} x_e[e, \text{trip}] + \sum_{d \in \text{diesel\_buses}} x_d[d, \text{trip}] = 1, \quad \forall \text{trip} \in \text{trips}
-   \]
+   $ \sum_{e \in \text{electric\_buses}} x_e[e, \text{trip}] + \sum_{d \in \text{diesel\_buses}} x_d[d, \text{trip}] = 1, \quad \forall \text{trip} \in \text{trips} $
 
 2. **Fleet Size Constraint**: Limits the usage of electric and diesel buses to the available fleet.
 
