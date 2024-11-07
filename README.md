@@ -1,4 +1,4 @@
-a# Bus Routing Optimization Problem
+# Bus Routing Optimization Problem
 
 ## 1. Introduction
 
@@ -82,7 +82,7 @@ To prevent excessive computation, we define a tolerance level for the improvemen
 
 ## 7. Results and Interpretation
 
-### Example Results
+### Results
 The column generation approach provides an efficient solution for assigning buses to trips with minimized operational costs. The final output includes:
 - **Bus Assignments**: Each bus’s assigned trips.
 - **Total Operational Costs**: The minimized cost of charging and refueling, as well as any other fixed operational costs.
@@ -90,7 +90,3 @@ The column generation approach provides an efficient solution for assigning buse
 This approach balances the trade-off between accuracy and computational efficiency, making it a viable option for large urban transportation networks.
 
 ---
-
-## 8. Conclusion
-
-The routing optimization model, enhanced with column generation, efficiently handles the scheduling of a mixed fleet of buses while minimizing operational costs. This iterative approach allows for scalability, enabling real-world application in large-scale transit systems.
