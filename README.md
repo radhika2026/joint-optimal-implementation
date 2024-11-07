@@ -1,4 +1,4 @@
-# Bus Routing Optimization Problem
+a# Bus Routing Optimization Problem
 
 ## 1. Introduction
 
@@ -24,72 +24,33 @@ The aim is to assign each bus in the fleet (both electric and diesel) to serve s
 - `refuel[bus_id, t]`: Binary variable for diesel buses, representing refueling events.
 - `z_e[bus_id]`, `z_d[bus_id]`: Binary variables tracking whether electric or diesel buses are active for scheduling purposes.
 
----
 
 ## 3. Constraints
 
 1. **Trip Completion Constraint**: Ensures each trip is served by one bus, either electric or diesel.
 
-  $$ \sum_{e \in \text{electric\_buses}} x_e[e, \text{trip}] + \sum_{d \in \text{diesel\_buses}} x_d[d, \text{trip}] = 1, \quad \forall \text{trip} \in \text{trips} $$
-
 2. **Fleet Size Constraint**: Limits the usage of electric and diesel buses to the available fleet.
-
-   \[
-   \sum_{e \in \text{electric\_buses}} z_e[e] \leq \text{total\_electric\_buses}
-   \]
-   \[
-   \sum_{d \in \text{diesel\_buses}} z_d[d] \leq \text{total\_diesel\_buses}
-   \]
 
 3. **Energy Management Constraints**:
    - **Electric Buses**: Each electric bus must have sufficient charge for its trips. For a given `trip_id` assigned to an electric bus `e`, this constraint ensures enough remaining charge:
 
-     \[
-     x_e[e, \text{trip\_id}] \cdot \text{battery\_capacity}[e] \geq \text{distance}[ \text{trip\_id}] \cdot \text{consumption\_rate}[e]
-     \]
-
    - **Diesel Buses**: Each diesel bus must have enough fuel:
-
-     \[
-     x_d[d, \text{trip\_id}] \cdot \text{fuel\_capacity}[d] \geq \text{distance}[ \text{trip\_id}] \cdot \text{consumption\_rate}[d]
-     \]
 
 4. **Charger Capacity Constraint**: Limits the number of electric buses that can be charged simultaneously at the depot.
 
-   \[
-   \sum_{e \in \text{electric\_buses}} \text{charge}[e, t] \leq \text{charger\_capacity}, \quad \forall t
-   \]
-
 5. **Depot Return Constraint**: Ensures that each bus returns to the depot by the end of the day.
 
-   \[
-   x_e[e, \text{last\_trip}] = 1 \quad \text{and} \quad x_d[d, \text{last\_trip}] = 1
-   \]
-
----
 
 ## 4. Objective Function
 
 The objective is to **minimize the total operational costs**, which include the costs of charging electric buses, refueling diesel buses, and any fixed operational costs.
-
-### Objective Function Formula
-
-\[
-\text{Minimize:} \sum_{e \in \text{electric\_buses}} \sum_{t=1}^{24} \text{charge}[e, t] \cdot (\text{fixed\_cost\_electric} + \text{unit\_cost\_electric}) + \sum_{d \in \text{diesel\_buses}} \sum_{t=1}^{24} \text{refuel}[d, t] \cdot (\text{fixed\_cost\_diesel} + \text{unit\_cost\_diesel})
-\]
-
-Where:
-- **Fixed Cost Electric** and **Fixed Cost Diesel** are fixed costs per charging or refueling event.
-- **Unit Cost Electric** and **Unit Cost Diesel** are per-unit energy costs for electric charging and fuel refilling.
-
----
 
 ## 5. Methodology
 
 ### Mixed Integer Linear Programming (MILP)
 This problem is formulated as a MILP, where binary variables track whether a bus serves a specific trip and whether it is scheduled to charge or refuel. Constraints manage resource limitations and enforce the required service.
 
-### Column Generation Technique
+### Column Generation Technique (To learn more about Column Generation [View the Document](./Documentation/ColumnGeneration.pdf))
 Given the large number of buses and trips, solving the full MILP directly would be computationally intensive. To make the solution more feasible, we implemented **column generation**.
 
 #### Column Generation Steps:
